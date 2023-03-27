@@ -175,8 +175,8 @@ jobs:
     - name: Make Anykernel for the kernel
       run: |
         cd AnyKernel3
-        sed -i '/device.name[1-4]/d' anykernel.sh
-        sed -i 's/device.name5=/device.name1=${{ env.DEVICE }}/g' anykernel.sh
+        git clone https://github.com/osm0sis/AnyKernel3
+        sed -i 's/do.devicecheck=1/do.devicecheck=0/g' anykernel.sh
         sed -i 's!block=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;!block=auto;!g' anykernel.sh
         sed -i 's/is_slot_device=0;/is_slot_device=auto;/g' anykernel.sh
         if [ ${{ env.CHECK_KERNEL_FILE_IS_OK }} = true ] ; then
@@ -185,9 +185,6 @@ jobs:
         if [ ${{ env.CHECK_DTBO_IS_OK }} = true ] ; then
             cp -fp ../android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/dtbo.img ./
         fi
-        cp -fp ../android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/dtb ./
-        cp -fp ../android-kernel/out/.config ./
-        cp -fp ../android-kernel/out/defconfig ./
         rm -rf .git* modules patch ramdisk
 
     - name: Upload AnyKernel3
