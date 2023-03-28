@@ -101,7 +101,15 @@ jobs:
             echo "CONFIG_KPROBE_EVENTS=y" >> arch/${{ env.TARGET_ARCH }}/configs/${{ env.KERNEL_DEFCONFIG }}
             curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
             echo "UPLOADNAME=-KernelSU" >> $GITHUB_ENV
-
+        else
+            if git apply --check ../KernelSU.patch ; then
+                git apply ../KernelSU.patch
+                curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
+                echo "UPLOADNAME=-KernelSU" >> $GITHUB_ENV
+            else
+                echo "KernelSU Patching failed"
+            fi
+        fi
 
     - name: Generate kernel configuration
       run: |
