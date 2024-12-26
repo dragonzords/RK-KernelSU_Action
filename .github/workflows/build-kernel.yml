@@ -4,15 +4,15 @@ on:
   workflow_dispatch:
 
     inputs:
-      KERNEL_SOURCE:
+      KERNEL_SOURCE: 'https://github.com/dragonzords/Interstellar_begonia_kernel.git'
         description: 'Kernel Source'
         required: true
         default: 'Rohail33/RealKing-kernel-SM8250'
-      KERNEL_SOURCE_BRANCH:
+      KERNEL_SOURCE_BRANCH: 'vic'
         description: 'Branch'
         required: true
         default: 'munch-mi'
-      KERNEL_DEFCONFIG:
+      KERNEL_DEFCONFIG: 'begonia_user_defconfig
         description: 'Defconfig'
         required: true
         default: 'vendor/munch_defconfig'
@@ -37,7 +37,7 @@ on:
         required: false
         default: 'true'
         type: boolean
-      USE_KERNELSU:
+      USE_KERNELSU: 'true'
         description: 'Use KernelSU'
         required: true
         default: 'true'
